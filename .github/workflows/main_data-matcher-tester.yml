@@ -37,6 +37,9 @@ jobs:
           
           # Copy built React app
           cp -r dist/* deployment-temp/
+
+          cp etc/deployment-package.json deployment-temp/package.json
+          cp etc/deployment-web.config deployment-temp/web.config
           
           # Create deployment zip
           cd deployment-temp

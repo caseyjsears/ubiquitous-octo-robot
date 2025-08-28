@@ -1,0 +1,11 @@
+{
+  "name": "data-match-spa",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npx serve -s . -l 8080"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}
