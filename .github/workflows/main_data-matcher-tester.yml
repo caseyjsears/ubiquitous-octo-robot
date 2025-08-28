@@ -29,11 +29,25 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+      - name: Create deployment package
+        run: |
+          # Clean any existing deployment directory
+          rm -rf deployment-temp
+          mkdir deployment-temp
+          
+          # Copy built React app
+          cp -r dist/* deployment-temp/
+          
+          # Create deployment zip
+          cd deployment-temp
+          zip -r ../deployment.zip . -x "*.DS_Store*"
+          cd ..   
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: deployment.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,5 +65,5 @@ jobs:
         with:
           app-name: 'data-matcher-tester'
           slot-name: 'Production'
-          package: .
+          package: deployment.zip
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8D3EC367504A46F682D18934386756DD }}
